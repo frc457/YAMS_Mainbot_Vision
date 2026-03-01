@@ -1,119 +1,121 @@
-package frc.robot.subsystems;
+// package frc.robot.subsystems;
 
 
-import static edu.wpi.first.units.Units.Amps;
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.DegreesPerSecond;
-import static edu.wpi.first.units.Units.DegreesPerSecondPerSecond;
-import static edu.wpi.first.units.Units.Meters;
-import static edu.wpi.first.units.Units.Pounds;
-import static edu.wpi.first.units.Units.Second;
-import static edu.wpi.first.units.Units.Seconds;
-import static edu.wpi.first.units.Units.Volts;
-import static yams.mechanisms.SmartMechanism.gearbox;
-import static yams.mechanisms.SmartMechanism.gearing;
+// import static edu.wpi.first.units.Units.Amps;
+// import static edu.wpi.first.units.Units.Degrees;
+// import static edu.wpi.first.units.Units.DegreesPerSecond;
+// import static edu.wpi.first.units.Units.DegreesPerSecondPerSecond;
+// import static edu.wpi.first.units.Units.Inches;
+// import static edu.wpi.first.units.Units.Meters;
+// import static edu.wpi.first.units.Units.Pounds;
+// import static edu.wpi.first.units.Units.Second;
+// import static edu.wpi.first.units.Units.Seconds;
+// import static edu.wpi.first.units.Units.Volts;
+// import static yams.mechanisms.SmartMechanism.gearbox;
+// import static yams.mechanisms.SmartMechanism.gearing;
 
-import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ARM_CONSTANTS;
-import yams.mechanisms.config.ArmConfig;
-import yams.mechanisms.config.MechanismPositionConfig;
-import yams.mechanisms.positional.Arm;
-import yams.motorcontrollers.SmartMotorController;
-import yams.motorcontrollers.SmartMotorControllerConfig;
-import yams.motorcontrollers.SmartMotorControllerConfig.ControlMode;
-import yams.motorcontrollers.SmartMotorControllerConfig.MotorMode;
-import yams.motorcontrollers.SmartMotorControllerConfig.TelemetryVerbosity;
-import yams.motorcontrollers.local.SparkWrapper;
+// import com.revrobotics.AbsoluteEncoder;
+// import com.revrobotics.spark.SparkLowLevel.MotorType;
+// import com.revrobotics.spark.SparkMax;
+// import edu.wpi.first.math.controller.ArmFeedforward;
+// import edu.wpi.first.math.geometry.Translation3d;
+// import edu.wpi.first.math.system.plant.DCMotor;
+// import edu.wpi.first.units.measure.Angle;
+// import edu.wpi.first.units.measure.Distance;
+// import edu.wpi.first.units.measure.Mass;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj2.command.Command;
+// import edu.wpi.first.wpilibj2.command.SubsystemBase;
+// import frc.robot.Constants.ARM_CONSTANTS;
+// import yams.gearing.GearBox;
+// import yams.gearing.MechanismGearing;
+// import yams.math.ExponentialProfilePIDController;
+// import yams.mechanisms.config.ArmConfig;
+// import yams.mechanisms.config.MechanismPositionConfig;
+// import yams.mechanisms.positional.Arm;
+// import yams.motorcontrollers.SmartMotorController;
+// import yams.motorcontrollers.SmartMotorControllerConfig;
+// import yams.motorcontrollers.SmartMotorControllerConfig.ControlMode;
+// import yams.motorcontrollers.SmartMotorControllerConfig.MotorMode;
+// import yams.motorcontrollers.SmartMotorControllerConfig.TelemetryVerbosity;
+// import yams.motorcontrollers.local.SparkWrapper;
 
-public class ArmSubsystem extends SubsystemBase
-{
-  private final SparkMax ArmMotor  = new SparkMax(ARM_CONSTANTS.ARM_ID, MotorType.kBrushless);
-  // private final AbsoluteEncoder absEncoder = ArmMotor.getAbsoluteEncoder();
-  // private static final double SAFE_MIN_ANGLE = 20.0;
-  // private static final double SAFE_MAX_ANGLE = 100.0;
+// public class ArmSubsystem extends SubsystemBase
+// {
   
-
-  private final SmartMotorControllerConfig motorConfig = new SmartMotorControllerConfig(this)
-      .withClosedLoopController(0.0001, 0, 0, DegreesPerSecond.of(180), DegreesPerSecondPerSecond.of(90))
-      .withSoftLimit(Degrees.of(-30), Degrees.of(100))
-      .withGearing(gearing(gearbox(5, 5)))
-      .withExternalEncoder(ArmMotor.getAbsoluteEncoder())
-      .withIdleMode(MotorMode.BRAKE)
-      .withTelemetry("ArmMotor", TelemetryVerbosity.HIGH)
-//      .withSpecificTelemetry("ArmMotor", motorTelemetryConfig)
-      .withStatorCurrentLimit(Amps.of(40))
-//      .withVoltageCompensation(Volts.of(12))
-      .withMotorInverted(false)
-      .withClosedLoopRampRate(Seconds.of(0.25))
-      .withOpenLoopRampRate(Seconds.of(0.25))
-      .withFeedforward(new ArmFeedforward(0, 0, 0, 0))
-      .withControlMode(ControlMode.CLOSED_LOOP);
-  private final SmartMotorController       motor            = new SparkWrapper(ArmMotor,
-                                                                               DCMotor.getNEO(1),
-                                                                               motorConfig);
-  private final MechanismPositionConfig    robotToMechanism = new MechanismPositionConfig()
-      .withMaxRobotHeight(Meters.of(1.5))
-      .withMaxRobotLength(Meters.of(0.75))
-      .withRelativePosition(new Translation3d(Meters.of(0.25), Meters.of(0), Meters.of(0.5)));
+//   private final Mass     weight = Pounds.of(1);
+//    private final DCMotor  motors = DCMotor.getNEO(1);
+//   private final Distance length = Inches.of(6);
+//    private final MechanismGearing gearing = new MechanismGearing(GearBox.fromReductionStages(6.88));
+//   private final SparkMax ArmMotor  = new SparkMax(ARM_CONSTANTS.ARM_ID, MotorType.kBrushless);
 
 
-  private       ArmConfig m_config = new ArmConfig(motor)
-      .withLength(Meters.of(0.135))
-      .withHardLimit(Degrees.of(-100), Degrees.of(200))
-      .withTelemetry("ArmExample", TelemetryVerbosity.HIGH)
-      .withMass(Pounds.of(1))
-      .withStartingPosition(Degrees.of(0))
-      .withHorizontalZero(Degrees.of(0))
-      .withMechanismPositionConfig(robotToMechanism);
-  private final Arm       arm      = new Arm(m_config);
+//   private final SmartMotorControllerConfig motorConfig = new SmartMotorControllerConfig(this)
+//       // .withClosedLoopController(0.0001, 0, 0, DegreesPerSecond.of(180), DegreesPerSecondPerSecond.of(90))
 
-  public ArmSubsystem()
-  {
-  }
+//       .withClosedLoopController(new ExponentialProfilePIDController(14.371, 0, 0, ExponentialProfilePIDController
+//       .createArmConstraints(Volts.of(10), motors, weight, length, gearing)))
+//       .withSoftLimit(Degrees.of(-30), Degrees.of(100))
+//       .withGearing(gearing)
+//       .withExternalEncoder(ArmMotor.getAbsoluteEncoder())
+//       .withIdleMode(MotorMode.BRAKE)
+//       .withTelemetry("ArmMotor", TelemetryVerbosity.HIGH)
+//       .withStatorCurrentLimit(Amps.of(40))
+//       .withMotorInverted(false)
+//       .withClosedLoopRampRate(Seconds.of(0.25))
+//       .withOpenLoopRampRate(Seconds.of(0.25))
+//       .withFeedforward(new ArmFeedforward(0, 0, 0, 0))
+//       .withControlMode(ControlMode.CLOSED_LOOP);
+//   private final SmartMotorController       motor            = new SparkWrapper(ArmMotor,
+//                                                                                DCMotor.getNEO(1),
+//                                                                                motorConfig);
+//   private final MechanismPositionConfig    robotToMechanism = new MechanismPositionConfig()
+//       .withMaxRobotHeight(Meters.of(1.5))
+//       .withMaxRobotLength(Meters.of(0.75))
+//       .withRelativePosition(new Translation3d(Meters.of(0.25), Meters.of(0), Meters.of(0.5)));
 
-  public void periodic()
-  {
-    arm.updateTelemetry();
+
+//   private       ArmConfig m_config = new ArmConfig(motor)
+//       .withLength(length)
+//       .withHardLimit(Degrees.of(-100), Degrees.of(300))
+//       .withTelemetry("ArmSubsystem", TelemetryVerbosity.HIGH)
+//       .withMass(Pounds.of(1))
+//       .withStartingPosition(Degrees.of(0))
+//       .withHorizontalZero(Degrees.of(0))
+//       .withMechanismPositionConfig(robotToMechanism);
+//   private final Arm       arm      = new Arm(m_config);
+
+//   public ArmSubsystem()
+//   {
+//   }
+
+//   public void periodic()
+//   {
+//     arm.updateTelemetry();
     
-    // SmartDashboard.putBoolean("Arm Safe", isArmSafe());
-  }
+  
+//   }
 
-  public void simulationPeriodic()
-  {
-    arm.simIterate();
-  }
+//   public void simulationPeriodic()
+//   {
+//     arm.simIterate();
+//   }
 
-  public Command armCmd(double dutycycle)
-  {
-    return arm.set(dutycycle);
-  }
+//   public Command armCmd(double dutycycle)
+//   {
+//     return arm.set(dutycycle);
+//   }
 
-  public Command sysId()
-  {
-    return arm.sysId(Volts.of(3), Volts.of(3).per(Second), Second.of(30));
-  }
+//   public Command sysId()
+//   {
+//     return arm.sysId(Volts.of(3), Volts.of(3).per(Second), Second.of(30));
+//   }
 
-  public Command setAngle(Angle angle)
-  {
-    return arm.setAngle(angle);
-  }
-
-  // public boolean isArmSafe() {
-  //     double angleDeg = absEncoder.getPosition() * 360.0;
-
-  //     return angleDeg >= SAFE_MIN_ANGLE && angleDeg <= SAFE_MAX_ANGLE;
-  // }
+//   public Command setAngle(Angle angle)
+//   {
+//     return arm.setAngle(angle);
+//   }
 
 
 
-
-}
+// }

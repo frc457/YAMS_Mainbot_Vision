@@ -50,24 +50,24 @@ public final class Constants
   }
 
     public static class ARM_CONSTANTS{
-      public static final int ARM_ID = 6;
+      public static final int ARM_ID = 6;//SM
   }
 
     public static class INDEXER_CONSTANTS{
-      public static final int INDEXER_ID = 4;
+      public static final int INDEXER_ID = 4;//SF
   }
 
     public static class INTAKE_CONSTANTS{
-      public static final int INTAKE_ID = 7;
+      public static final int INTAKE_ID = 7;//SM
   }
 
     public static class SHOOTER_CONSTANTS{
-      public static final int SHOOTER_ID = 2;
-      public static final int SHOOTER_TWO_ID = 3;
+      public static final int SHOOTER_ID = 2;//SF
+      public static final int SHOOTER_TWO_ID = 3;//SF
   }
 
-    public static class TRANSPORT_CONSTANTS{
-      public static final int TRANSPORT_ID = 5;
+    public static class HOPPER_CONSTANTS{
+      public static final int HOPPER_ID = 5;//SM
   }
 
   public static class COMMAND_TRAIN_CONSTANTS{

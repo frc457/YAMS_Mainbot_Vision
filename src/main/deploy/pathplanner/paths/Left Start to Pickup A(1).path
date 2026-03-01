@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6120827389443653,
-        "y": 6.357489300998574
+        "x": 4.379734939759036,
+        "y": 7.214963855421687
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.953238272084988,
-        "y": 6.281324641410223
+        "x": 8.707108433734941,
+        "y": 7.870626506024098
       },
       "isLocked": false,
       "linkedName": "A(1)"
     },
     {
       "anchor": {
-        "x": 1.140798858773181,
-        "y": 6.1245934379457925
+        "x": 7.9640240963855415,
+        "y": 4.581385542168674
       },
       "prevControl": {
-        "x": 1.4547832081628194,
-        "y": 6.161776748200505
+        "x": 7.920313253012047,
+        "y": 6.231469879518072
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "A(2)"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4342967244701358,
+      "rotationDegrees": 70.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 81.70285503016288
   },
   "reversed": false,
   "folder": "LEFT A Auto",

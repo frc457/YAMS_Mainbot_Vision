@@ -27,30 +27,6 @@
           "data": {
             "pathName": "Pickup 2 to shoot A(4)"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Shoot 2 to midfeild A(5)"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Midfeild intaking fairy A(6)"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Fairy to intaking2 A(7)"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Intaking2 to last shoot A(8)"
-          }
         }
       ]
     }

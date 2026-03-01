@@ -8,23 +8,24 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.TransportSubsytem;
+import frc.robot.subsystems.HopperSubsytem;
 
 public class ShootCommand extends Command
 {
 
     private ShooterSubsystem shooter;
     private IndexerSubsystem indexer;
-    private TransportSubsytem transport;
+    private HopperSubsytem Hopper;
     private Supplier<AngularVelocity> setpoint;
     
 
-    public ShootCommand(Supplier<AngularVelocity> shootSpeed, ShooterSubsystem shooter, IndexerSubsystem indexer, TransportSubsytem transport)
+    public ShootCommand(Supplier<AngularVelocity> shootSpeed, ShooterSubsystem shooter, IndexerSubsystem indexer, HopperSubsytem Hopper)
     {
         this.shooter = shooter;
         this.indexer = indexer;
-        this.transport = transport;
+        this.Hopper = Hopper;
         setpoint = shootSpeed;
+        addRequirements(shooter, indexer, Hopper);
     }
     
     
@@ -34,7 +35,7 @@ public class ShootCommand extends Command
   @Override
   public void initialize()
   {
-    shooter.setVelocity(setpoint.get());
+    shooter.setMechanismVelocitySetpoint(setpoint.get());
   }
 
   /**
@@ -44,14 +45,14 @@ public class ShootCommand extends Command
   @Override
   public void execute()
   {
-    shooter.setVelocity(setpoint.get());
-    if(shooter.getVelocity().in(RPM) == setpoint.get().in(RPM))
+    shooter.setMechanismVelocitySetpoint(setpoint.get());
+    if (shooter.getVelocity().in(RPM) >= setpoint.get().in(RPM))
     {
-        indexer.set(1);
-        transport.set(1);
+        indexer.setduty(1);
+        Hopper.setduty(1);
     }else{
-        indexer.set(0);
-        transport.set(0);
+        indexer.setduty(0);
+        Hopper.setduty(0);
     }
   }
 
@@ -84,6 +85,6 @@ public class ShootCommand extends Command
   @Override
   public void end(boolean interrupted)
   {
-    shooter.set(0);
+    shooter.setduty(0);
   }
 }
