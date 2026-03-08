@@ -19,6 +19,7 @@ import com.pathplanner.lib.util.swerve.SwerveSetpoint;
 import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -81,7 +82,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
   private Vision vision;
 
-  private PhotonTrackedTarget bestOfGivenTargets = null;
+  private PhotonTrackedTarget nearestDesiredTarget = null;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -254,10 +255,16 @@ public class SwerveSubsystem extends SubsystemBase
 
         if (result.hasTargets() && desiredTarget != null) {
           SmartDashboard.putNumber("Distance from AprilTag to Robot", vision.getDistanceFromAprilTag(targetID));
+
+          PIDController pid = new PIDController(1, 0, 0);
+
+          double pidCalculation = pid.calculate(swerveDrive.getYaw().getDegrees(), desiredTarget.getYaw());
+          
+          double turnAngle = -1 * pidCalculation;
+
           drive(getTargetSpeeds(0,
                               0,
-                              Rotation2d.fromDegrees(-(desiredTarget
-                                                          .getYaw()))));
+                              Rotation2d.fromDegrees(turnAngle)));
         }
         else {
           drive(getTargetSpeeds(0,
@@ -289,7 +296,14 @@ public class SwerveSubsystem extends SubsystemBase
       });
   }
 
-  public Command aimAtNearestTag(Cameras camera, int[] aprilTagIDs, boolean endCommandWhenAimed)
+  /*
+  Aim at Nearest AprilTag Command:
+    This command accepts an array (list) of AprilTag ID integers and aims at the nearest one.
+    Note: This command should only be run in parallel with other commands as once it ends, the robot reorients itself to
+    its default position. In teleop, it should be binded to a trigger while the button's held down.
+  */
+
+  public Command aimAtNearestTag(Cameras camera, int[] aprilTagIDs)
   {
     return run(() -> {
       Optional<PhotonPipelineResult> resultO = camera.getBestResult();
@@ -298,9 +312,7 @@ public class SwerveSubsystem extends SubsystemBase
       {
         var result = resultO.get();
 
-        ArrayList<PhotonTrackedTarget> bestTargets = camera.getBestTargets(result); // Returns the top three best targets
-
-        // SmartDashboard.putBoolean("AprilTag " + targetID + " in Field of View:", desiredTarget != null);
+        ArrayList<PhotonTrackedTarget> bestTargets = camera.getBestTargets(result); // Returns the top two best targets or null if not found
 
         if (bestTargets == null) {
           return;
@@ -310,18 +322,22 @@ public class SwerveSubsystem extends SubsystemBase
         for (PhotonTrackedTarget target: bestTargets) {
           for (int aprilTagID: aprilTagIDs) {
             if (target.getFiducialId() == aprilTagID && target != null) {
-              bestOfGivenTargets = target;
+              nearestDesiredTarget = target;
               break findBestWithAnyTargetIDs; // Breaks out of the nested loop
             }
           }
         }
 
-        if (bestOfGivenTargets != null) {
-          System.out.println("Aiming at AprilTag " + bestOfGivenTargets.getFiducialId());
+        if (nearestDesiredTarget != null) {
+          PIDController pid = new PIDController(1, 0, 0);
+
+          double pidCalculation = pid.calculate(swerveDrive.getYaw().getDegrees(), nearestDesiredTarget.getYaw());
+          
+          double turnAngle = -1 * pidCalculation;
+
           drive(getTargetSpeeds(0,
                               0,
-                              Rotation2d.fromDegrees(-(bestOfGivenTargets
-                                                          .getYaw()))));
+                              Rotation2d.fromDegrees(turnAngle)));
         }
         else {
           drive(getTargetSpeeds(0,
@@ -330,17 +346,7 @@ public class SwerveSubsystem extends SubsystemBase
         }
         
       }   
-     }).until(() -> {
-      if (!endCommandWhenAimed) {
-        return false;
-      }
-
-      if (bestOfGivenTargets != null) {
-        return Math.abs(swerveDrive.getPose().getRotation().getDegrees() + bestOfGivenTargets.getYaw()) < 0.5;
-      }
-
-      return false;
-    });
+     });
   }
 
 

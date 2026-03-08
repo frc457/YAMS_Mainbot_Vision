@@ -146,12 +146,11 @@ public class RobotContainer
     autChooser.addOption("Drive to AprilTag", driveToTargetCommand);
     autChooser.addOption("Test_One PathPlanner Command", drivebase.getAutonomousCommand("Test_One"));
     autChooser.addOption("Aim at Nearest Side Hub Tag", drivebase.aimAtNearestTag(Cameras.LEFT_CAM, 
-        new int[]{DrivebaseConstants.blueHubLeftTagID,
-          DrivebaseConstants.blueHubRightTagID,
-          DrivebaseConstants.redHubLeftTagID,
-          DrivebaseConstants.redHubRightTagID,
-        },
-        false
+        new int[]{DrivebaseConstants.blueZoneHubLeftTagID,
+          DrivebaseConstants.blueZoneHubRightTagID,
+          DrivebaseConstants.redZoneHubLeftTagID,
+          DrivebaseConstants.redZoneHubRightTagID,
+        }
       ));
     // autChooser.addOption("Scoring Position Path", drivebase.getAutonomousCommand("ScoringPosition"));
     SmartDashboard.putData("Auto Chooser",autChooser);
@@ -230,14 +229,13 @@ public class RobotContainer
       driverController.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverController.R1().onTrue(Commands.none());
       
-      //AprilTag Aiming Triggers
+      // AprilTag Aiming Triggers
       driverController.R3().onTrue(drivebase.aimAtNearestTag(Cameras.LEFT_CAM, 
-        new int[]{DrivebaseConstants.blueHubLeftTagID,
-          DrivebaseConstants.blueHubRightTagID,
-          DrivebaseConstants.redHubLeftTagID,
-          DrivebaseConstants.redHubRightTagID,
-        },
-        true
+        new int[]{DrivebaseConstants.blueZoneHubLeftTagID,
+          DrivebaseConstants.blueZoneHubRightTagID,
+          DrivebaseConstants.redZoneHubLeftTagID,
+          DrivebaseConstants.redZoneHubRightTagID,
+        }
       ));
     }
 

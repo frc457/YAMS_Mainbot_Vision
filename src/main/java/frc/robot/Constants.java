@@ -40,13 +40,17 @@ public final class Constants
     public static final double WHEEL_LOCK_TIME = 10; // seconds
 
     // AprilTag IDs for Aiming at Hub
-    public static final int blueHubRightTagID = 27;
-    public static final int blueHubLeftTagID = 24;
-    public static final int redHubRightTagID = 11;
-    public static final int redHubLeftTagID = 8;
+    // The "right" or "left" of the hub is from the perspective of the blue or red alliance's zone.
+    
+    // These are the IDs of the AprilTags on the sides of the hubs (closest to the robot).
+    public static final int blueZoneHubRightTagID = 27;
+    public static final int blueZoneHubLeftTagID = 24;
+    public static final int redZoneHubRightTagID = 11;
+    public static final int redZoneHubLeftTagID = 8;
 
-    public static final int blueHubCenterTagID = 26;
-    public static final int redHubCenterTagID = 10;
+    // These are the IDs of the AprilTags directly in the center of the hub in the blue or red alliance's zone (not in the neutral zone).
+    public static final int blueZoneHubCenterTagID = 26;
+    public static final int redZoneubCenterTagID = 10;
 
 
 
