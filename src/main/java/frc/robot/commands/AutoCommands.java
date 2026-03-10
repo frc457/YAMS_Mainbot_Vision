@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants.COMMAND_TRAIN_CONSTANTS;
+import frc.robot.Constants.COMMAND_TRAIN_CONSTANTS.INTAKING_COMMAND_CONSTANTS;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.HopperSubsytem;
 
@@ -35,9 +37,10 @@ public class AutoCommands {
 
     public Command Auto_Intaking(){
 
-        return Arm.setAngleAndStop(Degrees.of(225))
-        .andThen(Intake.set(-1)
-        .alongWith(Hopper.set(-0.1)))
+        return //Arm.setAngleAndStop(COMMAND_TRAIN_CONSTANTS.DOWN_ANGLE)
+        //.andThen(
+            Intake.set(INTAKING_COMMAND_CONSTANTS.INTAKE_INTAKE_SPEED)
+        .alongWith(Hopper.set(INTAKING_COMMAND_CONSTANTS.HOPPER_INTAKE_SPEED))//)
         .beforeStarting(() -> SmartDashboard.putBoolean("AutoIntaking", true))
         .finallyDo(interrupted -> SmartDashboard.putBoolean("AutoIntaking", false));
     }

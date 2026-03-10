@@ -3,48 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.809885877318117,
-        "y": 6.939728958630528
+        "x": 3.650898716119829,
+        "y": 7.405520684736091
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.8061626248216838,
-        "y": 7.948944365192581
+        "x": 3.2627389443651924,
+        "y": 7.392582025677603
       },
       "isLocked": false,
-      "linkedName": "A(3)"
+      "linkedName": "A(6)"
     },
     {
       "anchor": {
-        "x": 7.687760342368046,
-        "y": 6.939728958630528
+        "x": 0.9467189728958629,
+        "y": 6.745649072753209
       },
       "prevControl": {
-        "x": 7.209029957203993,
-        "y": 7.392582025677603
+        "x": 1.981811697574893,
+        "y": 6.6680171184022825
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "A(4)"
+      "linkedName": "A(7)"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.22606120434353585,
-      "rotationDegrees": -1.1814359312426523
-    },
-    {
-      "waypointRelativePos": 0.4491609081934856,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "ArmDown",
-      "waypointRelativePos": 0.055180870631516075,
-      "endWaypointRelativePos": null,
+      "name": "Intake",
+      "waypointRelativePos": 0.8252605763335332,
+      "endWaypointRelativePos": 1.0,
       "command": null
     }
   ],
@@ -58,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 91.73570458892851
+    "rotation": -122.9694039034621
   },
   "reversed": false,
   "folder": "LEFT A Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -57.9946167919165
+    "rotation": 97.76516601842525
   },
   "useDefaultConstraints": true
 }

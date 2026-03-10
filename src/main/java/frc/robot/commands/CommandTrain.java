@@ -9,6 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants.COMMAND_TRAIN_CONSTANTS;
+import frc.robot.Constants.COMMAND_TRAIN_CONSTANTS.INTAKING_COMMAND_CONSTANTS;
+import frc.robot.Constants.COMMAND_TRAIN_CONSTANTS.MIXER_COMMAND_CONSTANTS;
+import frc.robot.Constants.COMMAND_TRAIN_CONSTANTS.THROWUP_COMMAND_CONSTANTS;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.HopperSubsytem;
 
@@ -51,28 +55,28 @@ public class CommandTrain {
 
     public Command Intaking(){
 
-        return Arm.setAngle(Degrees.of(235))
-        .alongWith(Intake.set(-1)
-        .alongWith(Hopper.set(-0.1)))
+        return Arm.setAngle(COMMAND_TRAIN_CONSTANTS.DOWN_ANGLE)
+        .alongWith(Intake.set(INTAKING_COMMAND_CONSTANTS.INTAKE_INTAKE_SPEED)
+        .alongWith(Hopper.set(INTAKING_COMMAND_CONSTANTS.HOPPER_INTAKE_SPEED)))
         .beforeStarting(() -> SmartDashboard.putBoolean("Intaking", true))
         .finallyDo(interrupted -> SmartDashboard.putBoolean("Intaking", false));
     }
 
     public Command mixer(){
-        return Hopper.set(1).withTimeout(0.2)
-        .andThen(Hopper.set(-1).withTimeout(0.2))
-        .andThen(Hopper.set(1).withTimeout(0.2))
+        return Hopper.set(MIXER_COMMAND_CONSTANTS.HOPPER_OUT).withTimeout(0.2)
+        .andThen(Hopper.set(MIXER_COMMAND_CONSTANTS.HOPPER_IN).withTimeout(0.2))
+        .andThen(Hopper.set(MIXER_COMMAND_CONSTANTS.HOPPER_OUT).withTimeout(0.2))
         .beforeStarting(() -> SmartDashboard.putBoolean("Mixing", true))
         .finallyDo(interrupted -> SmartDashboard.putBoolean("Mixing", false));
     }
     
 
     public Command throwup(){
-        return Arm.setAngle(Degrees.of(225))
-            .alongWith(Intake.set(0.5)
-            .alongWith(Indexer.set(0.5)
-            .alongWith(Shooter.setVelocity(RPM.of(-500)) 
-            .alongWith(Hopper.set(0.5)))))
+        return Arm.setAngle(COMMAND_TRAIN_CONSTANTS.DOWN_ANGLE)
+            .alongWith(Intake.set(THROWUP_COMMAND_CONSTANTS.INTAKE_OUT_HALF)
+            .alongWith(Indexer.set(THROWUP_COMMAND_CONSTANTS.INDEXER_OUT_HALF)
+            .alongWith(Shooter.setVelocity(THROWUP_COMMAND_CONSTANTS.SHOOTER_OUT)) 
+            .alongWith(Hopper.set(THROWUP_COMMAND_CONSTANTS.HOPPER_OUT_HALF))))
             .beforeStarting(() -> SmartDashboard.putBoolean("Throwup", true))
         .finallyDo(interrupted -> SmartDashboard.putBoolean("Throwup", false));
     
@@ -80,8 +84,8 @@ public class CommandTrain {
 
 
     public Command armOscillate() {
-        return Arm.setAngleAndStop(Degrees.of(180))
-            .andThen(Arm.setAngleAndStop(Degrees.of(225)))
+        return Arm.setAngleAndStop(COMMAND_TRAIN_CONSTANTS.DOWN_ANGLE)
+            .andThen(Arm.setAngleAndStop(COMMAND_TRAIN_CONSTANTS.SHOOT_ANGLE))
             .repeatedly();
 
     }
