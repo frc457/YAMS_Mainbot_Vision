@@ -5,6 +5,7 @@ import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.Pounds;
+import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
@@ -47,7 +48,7 @@ public class ArmSubsystem extends SubsystemBase
 
       .withClosedLoopController(new ExponentialProfilePIDController(ARM_CONSTANTS.kP, ARM_CONSTANTS.kI, ARM_CONSTANTS.kD, ExponentialProfilePIDController
       .createArmConstraints(Volts.of(10), motors, weight, length, gearing)))
-      .withSoftLimit(ARM_CONSTANTS.LOWER_SOFT_LIMIT, ARM_CONSTANTS.UPPER_SOFT_LIMIT)
+      .withSoftLimit(Rotations.of(0.338), Rotations.of(0.724))
       .withGearing(gearing)
       .withExternalEncoder(ArmMotor.getAbsoluteEncoder())
       .withIdleMode(MotorMode.BRAKE)
@@ -69,11 +70,11 @@ public class ArmSubsystem extends SubsystemBase
 
   private       ArmConfig m_config = new ArmConfig(motor)
       .withLength(length)
-      .withHardLimit(ARM_CONSTANTS.LOWER_HARD_LIMIT, ARM_CONSTANTS.UPPER_HARD_LIMIT)
+      .withHardLimit(Rotations.of(0.338), Rotations.of(0.724))
       .withTelemetry("ArmSubsystem", TelemetryVerbosity.HIGH)
       .withMass(Pounds.of(3))
       //.withStartingPosition(Degrees.of(0))
-      .withHorizontalZero(ARM_CONSTANTS.HORIZONTAL_ZERO)
+      .withHorizontalZero(Rotations.of(0.647))
       .withMechanismPositionConfig(robotToMechanism);
   private final Arm       arm      = new Arm(m_config);
 

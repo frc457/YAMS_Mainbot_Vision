@@ -80,13 +80,13 @@ public final class Constants
     public static double kV = 0.01;
     public static double kA = 0; 
 
-    public static Angle LOWER_SOFT_LIMIT = Rotations.of(0.288);
-    public static Angle UPPER_SOFT_LIMIT = Rotations.of(0.652);
+    public static Angle LOWER_SOFT_LIMIT = Rotations.of(0.336);
+    public static Angle UPPER_SOFT_LIMIT = Rotations.of(0.718);
 
-    public static Angle LOWER_HARD_LIMIT = Rotations.of(0.288);
-    public static Angle UPPER_HARD_LIMIT = Rotations.of(0.652);
+    public static Angle LOWER_HARD_LIMIT = Rotations.of(0.336);
+    public static Angle UPPER_HARD_LIMIT = Rotations.of(0.718);
 
-    public static Angle HORIZONTAL_ZERO = Rotations.of(0.590);
+    public static Angle HORIZONTAL_ZERO = Rotations.of(0.627);
     // public final static Mass     WEIGHT = Pounds.of(3);
     // public final static DCMotor  MOTORS = DCMotor.getNEO(1);
     // public final static Distance LENGTH = Inches.of(14);
