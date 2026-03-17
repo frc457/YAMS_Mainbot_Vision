@@ -209,6 +209,10 @@ public class RobotContainer
           Constants.blueZoneHubRightTagID,
           Constants.redZoneHubLeftTagID,
           Constants.redZoneHubRightTagID,
+          Constants.blueZoneHubCenterTagID,
+          Constants.redZoneHubCenterTagID,
+          Constants.blueZoneHubCenterLeftTagID,
+          Constants.redZoneHubCenterLeftTagID
         }
       ), new AutoShoot(()->RPM.of(2500), 
                                       m_shooter, m_indexer, m_Hopper, 3, armOscillateCommand))

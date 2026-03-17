@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -539,7 +540,8 @@ public class Vision
     public ArrayList<PhotonTrackedTarget> getBestTargets(PhotonPipelineResult result) {
       if (result.hasTargets()) {
         List<PhotonTrackedTarget> targets = result.getTargets();
-        targets.sort(Comparator.comparing((target) -> target.getPoseAmbiguity()));
+        targets.sort(Comparator.comparing((target) -> target.getArea()));
+        Collections.reverse(targets);
         
         if (targets.size() >= 2) {
           return new ArrayList<PhotonTrackedTarget>(targets.subList(0, 2));
