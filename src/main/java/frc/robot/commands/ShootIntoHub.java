@@ -35,22 +35,23 @@ public class ShootIntoHub extends Command
     private int[] hubAprilTagIDs;
     private int closestHubAprilTagID = -1;
 
-    /* Interpolating Double Tree Map
-    For each entry, the first value (k) represents the distance in meters from the hub and the second value (v) represents the RPM needed
-    to accurately shoot into the hub at that distance.
-    */
+    /*
+     * Interpolating Double Tree Map
+     * For each entry, the first value (k) represents the distance in meters from
+     * the hub and the second value (v) represents the RPM needed
+     * to accurately shoot into the hub at that distance.
+     */
     private InterpolatingDoubleTreeMap interpolatingMap = new InterpolatingDoubleTreeMap().ofEntries(
-      Map.entry(2.2, 3000.0),
-      Map.entry(2.5, 3300.0),
-      Map.entry(2.8, 3600.0),
-      Map.entry(2.9, 3700.0),
-      Map.entry(3.0, 3800.0),
-      Map.entry(3.1, 3900.0),
-      Map.entry(2.1, 2900.0),
-      Map.entry(2.0, 2800.0),
-      Map.entry(1.9, 2700.0),
-      Map.entry(1.8, 2600.0)
-    );
+        Map.entry(1.8, 2600.0),
+        Map.entry(1.9, 2700.0),
+        Map.entry(2.0, 2800.0),
+        Map.entry(2.1, 2900.0),
+        Map.entry(2.2, 3000.0),
+        Map.entry(2.5, 3300.0),
+        Map.entry(2.8, 3600.0),
+        Map.entry(2.9, 3700.0),
+        Map.entry(3.0, 3800.0),
+        Map.entry(3.1, 3900.0));
     
 
     public ShootIntoHub(Cameras camera, int[] hubAprilTagIDs, ShooterSubsystem shooter, IndexerSubsystem indexer, HopperSubsytem Hopper, SwerveSubsystem swerveSubsystem, Command armOscillate)
