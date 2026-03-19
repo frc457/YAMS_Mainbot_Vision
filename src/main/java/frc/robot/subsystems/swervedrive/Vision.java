@@ -556,7 +556,7 @@ public class Vision
     return null;
     }
 
-    public void displayDistanceToNearestHubAprilTag(Vision vision, int[] hubAprilTagIDs) {
+    public double getDistanceToHub(Vision vision, int[] hubAprilTagIDs, boolean updateSmartDashboard) {
       Optional<PhotonPipelineResult> resultO = LEFT_CAM.getBestResult();
       
       if (resultO.isPresent())
@@ -566,21 +566,29 @@ public class Vision
         ArrayList<PhotonTrackedTarget> closestTargets = LEFT_CAM.getClosestTargets(result); // Returns the top three closest targets or null if not found
 
         if (closestTargets == null) {
-          return;
+          return -1.0;
         }
 
         for (PhotonTrackedTarget target: closestTargets) {
           if (target != null) {
             for (int aprilTagID: hubAprilTagIDs) {
               if (target.getFiducialId() == aprilTagID) {
-                SmartDashboard.putNumber("Distance from Hub:", vision.getDistanceFromAprilTag(aprilTagID));
-                return;
+                double distanceToHub = vision.getDistanceFromAprilTag(target.getFiducialId());
+
+                if (updateSmartDashboard) {
+                  SmartDashboard.putNumber("Distance from Hub:", distanceToHub);
+                }
+
+                return distanceToHub;
               }
             }
           }
         }
-        SmartDashboard.putNumber("Distance from Hub:", -1);
+        if (updateSmartDashboard) {
+          SmartDashboard.putNumber("Distance from Hub:", -1);
+        }
       }
+      return -1.0;
     }
 
 

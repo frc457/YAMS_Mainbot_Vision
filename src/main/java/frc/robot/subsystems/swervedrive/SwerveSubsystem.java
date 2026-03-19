@@ -158,7 +158,9 @@ public class SwerveSubsystem extends SubsystemBase
     {
       swerveDrive.updateOdometry();
       vision.updatePoseEstimation(swerveDrive);
-      Cameras.LEFT_CAM.displayDistanceToNearestHubAprilTag(vision, new int[]{Constants.blueZoneHubLeftTagID,
+
+      // Only for updating the "Distance from Hub" SmartDashboard value
+      Cameras.LEFT_CAM.getDistanceToHub(vision, new int[]{Constants.blueZoneHubLeftTagID,
           Constants.blueZoneHubRightTagID,
           Constants.redZoneHubLeftTagID,
           Constants.redZoneHubRightTagID,
@@ -166,7 +168,7 @@ public class SwerveSubsystem extends SubsystemBase
           Constants.redZoneHubCenterTagID,
           Constants.blueZoneHubCenterLeftTagID,
           Constants.redZoneHubCenterLeftTagID
-        });
+        }, true);
 
     }
   }
